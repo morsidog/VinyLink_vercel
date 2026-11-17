@@ -1,7 +1,6 @@
 ---
-// Dueño: Persona A. Migrado de front/src/components/Hero.jsx.
-// `imagen` es opcional: la home le pasa la foto de una categoría del catálogo
-// para usarla como fondo editorial; sin imagen queda el fondo de surcos.
+import { Image } from "astro:assets";
+
 interface Props {
   imagen?: string;
 }
@@ -9,10 +8,22 @@ interface Props {
 const { imagen } = Astro.props;
 ---
 
-<section
-  class:list={["hero", { "hero--foto": imagen }]}
-  style={imagen ? { "--hero-img": `url(${imagen})` } : undefined}
->
+<section class:list={["hero", { "hero--foto": imagen }]}>
+  {imagen && (
+    <Image
+      src={imagen}
+      alt=""
+      width={1600}
+      height={700}
+      widths={[480, 800, 1200, 1600]}
+      sizes="100vw"
+      format="webp"
+      quality={70}
+      priority
+      class="hero__img"
+      fetchpriority="high"
+    />
+  )}
   <div class="hero__contenido">
     <h1>Música e instrumentos de todo tipo para todo tipo de personas</h1>
     <p>Explora nuestras categorías y arma tu pedido en minutos.</p>

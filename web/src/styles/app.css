@@ -169,9 +169,16 @@
   );
 }
 .hero--foto {
-  background-image: var(--hero-img);
-  background-size: cover;
-  background-position: center 30%;
+  background-image: none; /* quita el patrón de círculos cuando hay foto, como antes */
+}
+.hero__img {
+  position: absolute;
+  inset: 0;
+  z-index: -1; /* debajo del overlay (::before) y del contenido; isolation lo mantiene dentro de .hero */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%; /* equivale a tu background-position */
 }
 .hero--foto::before {
   content: "";
@@ -180,6 +187,7 @@
   z-index: 0;
   background: linear-gradient(115deg, rgba(36, 35, 33, 0.85), rgba(36, 35, 33, 0.4));
 }
+
 .hero__contenido {
   position: relative;
   z-index: 1;
@@ -252,13 +260,24 @@
   box-shadow: 0 10px 24px -14px var(--carbon-a45);
   border-color: var(--carbon-a20);
 }
-.card img,
+/* .card img,
 .category-card img,
 .modal img,
 .cart-item img {
   border-radius: 5px;
   aspect-ratio: 1 / 1;
   object-fit: cover;
+  filter: sepia(0.18) saturate(0.85) brightness(0.97) contrast(1.03);
+} */
+ .card img,
+.category-card img,
+.modal img,
+.cart-item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 5px;
   filter: sepia(0.18) saturate(0.85) brightness(0.97) contrast(1.03);
 }
 .category-card {
@@ -302,7 +321,13 @@
   font-size: 0.9rem;
   margin: 0;
 }
-
+.category-card img {
+  display: block;
+  width: 100%;
+  height: auto;          /* anula el atributo height="300" */
+  aspect-ratio: 4 / 3;   /* proporción que quieres ver */
+  object-fit: cover;     /* recorta en lugar de deformar */
+}
 /* --- Skeleton --- */
 .skeleton {
   background: linear-gradient(90deg, var(--beige) 25%, var(--cream) 50%, var(--beige) 75%);

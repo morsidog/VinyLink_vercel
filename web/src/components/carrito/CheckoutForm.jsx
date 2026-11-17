@@ -84,6 +84,15 @@ function errorDeDireccion(d) {
   return null;
 }
 
+//  @typedef {{ nombre?: string | null }} UsuarioProp
+ 
+//  @param {{
+//    user?: UsuarioProp | null,
+//  pagos?: any,
+//     errorConfig?: string | null,
+//  direcciones?: any[]
+//  }} props
+ 
 export default function CheckoutForm({ user = null, pagos = null, errorConfig = null, direcciones = [] }) {
   const items = useCartStore((s) => s.items);
   const totalLocal = useCartStore((s) => s.total());

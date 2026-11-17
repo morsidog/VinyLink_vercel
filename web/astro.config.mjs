@@ -4,6 +4,8 @@ import vercel from '@astrojs/vercel';
 //le movi pa que jalara en vercel
 export default defineConfig({
   output: 'server',
+   layout: "constrained",   
+    domains: ["tu-cdn.com"] ,
   integrations: [react()],
   adapter: vercel()
 });

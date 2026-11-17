@@ -1,14 +1,28 @@
+
 ---
-// Dueño: Persona A. Migrado de front/src/components/CategoryCard.jsx.
-// Antes era un <button> que avisaba al padre; ahora cada categoría tiene URL.
+import { Image } from "astro:assets";
+
 interface Props {
   categoria: { id: string; nombre: string; imagen: string };
+  prioridad?: boolean; // true solo para las primeras tarjetas visibles sin scroll
 }
 
-const { categoria } = Astro.props;
+const { categoria, prioridad = false } = Astro.props;
 ---
 
 <a class="category-card" href={`/categoria/${categoria.id}`}>
-  <img src={categoria.imagen} alt={categoria.nombre} loading="lazy" />
+  <Image
+    src={categoria.imagen}
+    alt={categoria.nombre}
+    width={400}
+    height={300}
+    widths={[200, 300, 400, 600]}
+    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+    format="webp"
+    quality={70}
+    loading={prioridad ? "eager" : "lazy"}
+    fetchpriority={prioridad ? "high" : "auto"}
+    decoding="async"
+  />
   <span>{categoria.nombre}</span>
 </a>
